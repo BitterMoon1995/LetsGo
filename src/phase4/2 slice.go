@@ -99,6 +99,17 @@ func appendFuncOfSlice() {
 	fmt.Println(slice)
 }
 
+/*
+append会引起切片的动态扩容，使用cap()内置函数查看当前容器容量
+*/
+func capacityOfSlice() {
+	slice := []int{0}
+	for i := 0; i < 10; i++ {
+		fmt.Println(cap(slice))
+		slice = append(slice, i)
+	}
+}
+
 func copyFuncOfSlice() {
 	src := []int{6, 3, 2, 4}
 	des := make([]int, 10)
@@ -112,5 +123,5 @@ func copyFuncOfSlice() {
 }
 
 func main() {
-	copyFuncOfSlice()
+	capacityOfSlice()
 }
