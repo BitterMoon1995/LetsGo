@@ -90,7 +90,7 @@ func structReDefine() {
 底层是反射
 */
 type Kitty struct {
-	Name  string `json:"name"`
+	Name  string `json:"value"`
 	Breed string `json:"breed"`
 	Age   int    `json:"age"`
 }

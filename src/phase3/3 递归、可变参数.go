@@ -10,6 +10,10 @@ func test(n int) {
 	}
 }
 
+func alterable(i ...int) {
+	fmt.Println(i)
+}
+
 func main() {
-	test(10)
+	alterable(1, 2, 3)
 }
