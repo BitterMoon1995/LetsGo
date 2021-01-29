@@ -8,13 +8,17 @@ import (
 通过[n:m]分切引用一个已经存在的数组
 */
 func declare() {
-	/*带初值声明，和数组的区别就是不写长度*/
+	/*一.var声明，值为nil，类型[]int切片（不是指针！），未分配空间*/
+	var slice0 []int
+	fmt.Println(slice0)
+
+	/*二.带初值声明，和数组的区别就是不写长度*/
 	slice := []int{1, 2, 3}
 	/*cap函数获取容器容量；切片的容量与长度都是动态改变的*/
 	fmt.Println("长度：", len(slice), "容量：", cap(slice))
 
 	arr := [...]int{1, 2, 3, 4, 5, 6, 7, 8, 9}
-	/*截取声明，这里取下标3到下标4，不包括下标4*/
+	/*三.截取声明，这里取下标3到下标4，不包括下标4*/
 	slice = arr[3:4]
 	fmt.Println(slice)
 	fmt.Println("长度：", len(slice), "容量：", cap(slice))
@@ -33,7 +37,7 @@ func ramModel() {
 }
 
 /*
-第三种声明方式：通过make函数声明，同时指定类型和长度。也可以再指定一个容量，容量要大于长度
+第四种声明方式：通过make函数声明，同时指定类型和长度。也可以再指定一个容量，容量要大于长度
 此时会新创建一个外部不可见的数组，仅由slice进行底层维护
 */
 func declareSlice3() {
@@ -43,7 +47,7 @@ func declareSlice3() {
 }
 
 /*
-第三种声明方式：直接指定具体数组
+第五种声明方式：直接指定具体数组
 */
 func declareSlice4() {
 	slice := [5]int{}

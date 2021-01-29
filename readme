@@ -4,4 +4,5 @@ phase1、2（同质化内容，没摸到指针和引用类型）为IT营，其�
 phase3：函数
 phase4：容器
 phase5：面向对象、接口
-phase6：文件操作
+phase6：文件操作、单元测试、
+phase7: goroutine、channel
