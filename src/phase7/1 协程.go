@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"runtime"
 	"time"
 )
 
@@ -15,8 +16,14 @@ import (
 所以把多个微服务部署在单机上是有意义的！微服务数等于处理器核心数就挺好。
 
 
-go协程特点：1.有独立的栈空间  2.共享程序堆空间  3.调度由用户控制
+go协程特点：
+1.有独立的栈空间
+2.共享程序堆空间
+3.调度由用户控制
 4.go没有传统线程，协程类似线程，但是是轻量级的线程
+★5.go关键字修饰的函数调用（协程代码）是异步进行的，非同步！最好做好回调或者利用缓冲容器
+6.协程函数不要有返回值，加了go关键字接收不了
+
 go主进程/线程：物理意义上的内核线程
 */
 func test() {
@@ -24,6 +31,16 @@ func test() {
 		fmt.Println("协程杀尼哥", i)
 		time.Sleep(time.Second)
 	}
+}
+
+/*
+获取以及设置CPU核心数
+go1.8以后，默认情况下所有CPU都会用上；1.8以前要手动设置
+*/
+func cpuCores() {
+	numCPU := runtime.NumCPU()
+	fmt.Println(numCPU)
+	runtime.GOMAXPROCS(numCPU - 1) //比如想留一个运行其他程序
 }
 
 /*
