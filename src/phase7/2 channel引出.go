@@ -31,12 +31,17 @@ func calFactorial(n uint64) {
 }
 
 func calFactorial2(n uint64) {
-	var res uint64 = 1
-	var i uint64
-	for i = 1; i <= n; i++ {
-		res *= i
+	var i uint64 = 1
+	for ; i <= n; i++ {
+
+		var res uint64 = 1
+		var j uint64 = 1
+		for ; j <= i; j++ {
+			res *= j
+		}
+		channel <- res
 	}
-	channel <- res
+	close(channel)
 }
 
 func mutexWay() {
@@ -50,20 +55,18 @@ func mutexWay() {
 }
 
 func channelWay() {
-	var i uint64
-	for i = 1; i <= 50; i++ {
-		go calFactorial2(i)
+	calFactorial2(50)
+	var i uint64 = 1
+	for {
+		v, f := <-channel
+		if !f {
+			break
+		} else {
+			myMap[i] = v
+			i++
+		}
 	}
-	/*
-		就是不能close channel！这意味着协程代码是异步运行的！
-	*/
-	//close(channel)
-
-	m := make(map[int]uint64)
-	for i := 1; i <= 50; i++ {
-		m[i] = <-channel
-	}
-	fmt.Println(m)
+	fmt.Println(myMap)
 }
 
 func main() {
