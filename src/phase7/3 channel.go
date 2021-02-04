@@ -6,6 +6,8 @@ import (
 )
 
 /*
+Golang在语言层面提供的goroutine间的通信方式
+
 channel是引用类型
 依然是先声明后make，或者声明同时make
 ★可以声明带缓冲或者不带缓冲的信道
@@ -115,7 +117,7 @@ func closeChannel() {
 /*
 channel的容量是不会动态增长的
 */
-func lenAndCapOfMap() {
+func lenAndCapOfChannel() {
 	channel := make(chan int)
 	fmt.Println(len(channel), cap(channel))
 

@@ -6,6 +6,7 @@ import (
 )
 
 /*
+Recover 是一个Go语言的内建函数，可以让进入宕机流程中的 goroutine 恢复过来，recover 仅在延迟函数 defer 中有效
 defer + recover
 捕获错误，终止程序，但可以成功返回
 */

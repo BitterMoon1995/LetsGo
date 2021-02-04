@@ -35,3 +35,18 @@ func TestGetNigger(t *testing.T) {
 		t.Logf("返回值为：%v 测试通过", nigger)
 	}
 }
+
+func TestGoroutineBreak(t *testing.T) {
+	c := make(chan bool, 4)
+	go func() {
+		for i := 0; i < 4; i++ {
+			c <- true
+		}
+	}()
+
+	for i := 0; i < 4; i++ {
+		<-c
+	}
+	close(c)
+	t.Logf("赢了")
+}
