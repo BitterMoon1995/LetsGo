@@ -1,7 +1,6 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"sync"
 	"time"
@@ -10,9 +9,12 @@ import (
 /**
 ★★并发控制
 理念：
-就是控制流（主线程）牢牢地控制逻辑流（协程）
+就是控制流（主线程）能够牢牢地控制逻辑流（协程）及其子逻辑流（子协程）
 期望：
-主线程不能阻塞、更不能搁这儿计时，0但是又能给协程恰好的运行时间；能开多个协程；协程还能开子协程
+主线程有多个子任务，子任务还可以有多个子任务；
+子任务既要感知主线程的取消信号，也需要感知上层任务的取消信号。
+上层任务取消后，所有的下层任务都会被取消；
+中间某一层的任务取消后，只会将当前任务的下层任务取消，而不会影响上层的任务以及同级任务。
 实现方式：
 1.全局变量：放弃，多个协程还要加同步锁干寄吧呢
 2.done channel
@@ -21,6 +23,9 @@ import (
 5.context
 */
 
+/*
+让子协程监听这个done channel，一旦主协程关闭done channel，那么子协程就可以推出了，这样就实现了主协程通知子协程的需求。
+*/
 func byDoneChannel() {
 	stop := make(chan bool)
 	go func() {
@@ -64,26 +69,5 @@ func byWaitgroup() {
 }
 
 func main() {
-	//创建一个可取消子context,context.Background():
-	//返回一个空的Context，这个空的Context一般用于整个Context树的根节点。
-	ctx, cancel := context.WithCancel(context.Background())
-	go func(ctx context.Context) {
-		for {
-			select {
-			//使用select调用<-ctx.Done()判断是否要结束
-			case <-ctx.Done():
-				fmt.Println("goroutine exit")
-				return
-			default:
-				fmt.Println("goroutine running.")
-				time.Sleep(1 * time.Second)
-			}
-		}
-	}(ctx)
-
-	time.Sleep(5 * time.Second)
-	//取消context
-	cancel()
-	time.Sleep(1 * time.Second)
-	fmt.Println("main fun exit")
+	byDoneChannel()
 }

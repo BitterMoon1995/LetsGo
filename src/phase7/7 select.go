@@ -14,7 +14,7 @@ select 随机执行一个可运行的 case，而如果没有 case 可运行，�
 
 跳出select方式：return；	switch label；	goto（麻了）。
 */
-func goroutine1(intChan chan int, stopCh chan bool) {
+func go01(intChan chan int, stopCh chan bool) {
 	var i int
 	i = 4396
 	for j := 0; j < 50; j++ {
@@ -28,7 +28,7 @@ func testSelect() {
 	intChan := make(chan int)
 	stopChan := make(chan bool)
 
-	go goroutine1(intChan, stopChan)
+	go go01(intChan, stopChan)
 
 	for {
 		select {
