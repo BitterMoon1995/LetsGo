@@ -10,7 +10,7 @@ func theForRange() {
 }
 
 /*
-多个满足条件时，可用逗号分割
+多个满足条件时，可用逗号分割，满足其中一个就会执行该分支
 golang中不需要写break,需要穿透时，分支语句最后写上fall through
 */
 func theSwitchCase(s string) {
@@ -43,5 +43,5 @@ func expressionCase(age int) {
 }
 
 func main() {
-	expressionCase(13)
+	theSwitchCase("nigga")
 }

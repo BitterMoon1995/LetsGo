@@ -62,7 +62,6 @@ func reflectStruct(i interface{}) {
 		转回Girl类型：先转成interface再断言
 	*/
 	vInterface := reflectValue.Interface()
-	fmt.Printf("%v %T\n", vInterface, vInterface)
 	/*
 		vInterface.name undefined (type interface {} is interface with no methods)
 		反射的本质是在运行时确认类型，在编译阶段vInterface还是interface {}

@@ -12,11 +12,11 @@ type fairy struct {
 	isSlut    bool
 }
 
-func (f fairy) sleep() {
+func (f fairy) Sleep() {
 	fmt.Println("仙女睡觉")
 }
 
-func (f fairy) wear() {
+func (f fairy) Wear() {
 	fmt.Println("仙女穿裙")
 }
 
@@ -41,6 +41,23 @@ func editStructValue(any interface{}) *fairy {
 	return any2
 }
 
+/*
+反射操作结构体方法，方法必须大写
+*/
+func invokeStructMethod(pointer interface{}) {
+	value := reflect.ValueOf(pointer)
+	elem := value.Elem()
+	//fmt.Printf("%v %T\n", value, value)
+	//fmt.Printf("%v %T\n", elem, elem)
+
+	numMethod := elem.NumMethod()
+	fmt.Println(numMethod)
+	elem.Method(0).Call(nil)
+
+	wearMethod := elem.MethodByName("Wear")
+	wearMethod.Call(nil)
+}
+
 func main() {
 	anJian := fairy{
 		Name:      "安简",
@@ -48,6 +65,5 @@ func main() {
 		FaceScore: 8.5,
 		isSlut:    true,
 	}
-	LXS := editStructValue(&anJian)
-	fmt.Println(*LXS)
+	invokeStructMethod(&anJian)
 }

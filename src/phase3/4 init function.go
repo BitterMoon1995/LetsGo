@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"utils"
+	//"utils"
 )
 
 //var a = globalVariableInit()
@@ -18,5 +18,5 @@ func init() {
 
 func main() {
 	fmt.Println("main() 函数最后执行")
-	fmt.Println(utils.Name, utils.Age)
+	//fmt.Println(utils.Name, utils.Age)
 }

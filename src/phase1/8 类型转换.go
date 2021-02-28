@@ -39,6 +39,7 @@ func stringToOthers() {
 	var (
 		intStr   string = "4397"
 		floatStr string = "2800.4396"
+		str      string = "black nigger"
 	)
 	parseInt, err := strconv.ParseInt(intStr, 10, 64)
 	fmt.Printf("%v---%T", parseInt, parseInt)
@@ -47,6 +48,10 @@ func stringToOthers() {
 	parseFloat, _ := strconv.ParseFloat(floatStr, 64)
 	fmt.Println(parseFloat)
 
+	/* 心梗：可以把string转换为byte切片
+	梗来源：GF源码util/gconv/gconv_struct.go line78 */
+	strBytes := []byte(str)
+	fmt.Println(strBytes)
 }
 
 func main() {
